@@ -1,0 +1,3 @@
+C:/Users/danie/Desktop/PJATK/SEM 6/SGD/MiniGolf/cmake-build-debug-visual-studio/CMakeFiles/MiniGolf.dir
+C:/Users/danie/Desktop/PJATK/SEM 6/SGD/MiniGolf/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+C:/Users/danie/Desktop/PJATK/SEM 6/SGD/MiniGolf/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
