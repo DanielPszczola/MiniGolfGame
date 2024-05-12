@@ -10,5 +10,9 @@ set(SDL2_TTF_LIB_DIR "C:\\SDL2_ttf-2.22.0\\lib\\x64")
 
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_TTF_INCLUDE_DIR})
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp
+        src/headers/circle.h
+        src/circle.cpp
+        src/headers/collision.h
+        src/collision.cpp)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIB_DIR}/SDL2.lib ${SDL2_LIB_DIR}/SDL2main.lib ${SDL2_TTF_LIB_DIR}/SDL2_ttf.lib)

@@ -4,41 +4,19 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
-
-// Funkcja do rysowania okręgów
-void SDL_RenderDrawCircle(SDL_Renderer* renderer, int x, int y, int radius) {
-    for (int w = 0; w < radius * 2; w++) {
-        for (int h = 0; h < radius * 2; h++) {
-            int dx = radius - w;
-            int dy = radius - h;
-            if ((dx * dx + dy * dy) <= (radius * radius)) {
-                SDL_RenderDrawPoint(renderer, x + dx, y + dy);
-            }
-        }
-    }
-}
-
-// Funkcja do sprawdzania kolizji między prostokątem a okręgiem
-bool checkCollision(SDL_Rect rect, double circleX, double circleY, double radius) {
-    double closestX = fmax(rect.x, fmin(circleX, rect.x + rect.w));
-    double closestY = fmax(rect.y, fmin(circleY, rect.y + rect.h));
-
-    double dx = circleX - closestX;
-    double dy = circleY - closestY;
-
-    return (dx * dx + dy * dy) <= (radius * radius);
-}
+#include "headers/circle.h"
+#include "headers/collision.h"
 
 int main(int argc, char* argv[]) {
     // Inicjalizacja SDL
     SDL_Init(SDL_INIT_VIDEO);
     srand(time(NULL));
 
-    // Ustawienia okna
-    int windowWidth = 800;
-    int windowHeight = 600;
-    SDL_Window* window = SDL_CreateWindow("Minigolf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    // Inicjalizacja SDL_ttf
+    if (TTF_Init() == -1) {
+        printf("TTF_Init: %s\n", TTF_GetError());
+        exit(2);
+    }
 
     // Inicjalizacja zmiennych gry
     int moves = 2;
@@ -52,21 +30,20 @@ int main(int argc, char* argv[]) {
     double friction = 0.01;
     double minBounceSpeed = 0.5;
 
-    // Inicjalizacja SDL_ttf
-    if (TTF_Init() == -1) {
-        printf("TTF_Init: %s\n", TTF_GetError());
-        exit(2);
-    }
-
     // Ładowanie czcionki
-    TTF_Font* font = TTF_OpenFont("C:\\Users\\danie\\Desktop\\PJATK\\SEM 6\\SGD\\MiniGolf\\font.ttf", 24);
+    TTF_Font* font = TTF_OpenFont("C:\\Users\\danie\\Desktop\\PJATK\\SEM 6\\SGD\\MiniGolf\\src\\font\\font.ttf", 24);
     if (font == NULL) {
         printf("TTF_OpenFont: %s\n", TTF_GetError());
-        // obsługa błędu
     }
 
     // Ustawienie koloru tekstu
     SDL_Color textColor = {255, 255, 255, 255};
+
+    // Ustawienia okna
+    int windowWidth = 800;
+    int windowHeight = 600;
+    SDL_Window* window = SDL_CreateWindow("Minigolf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     // Inicjalizacja przeszkód
     const int obstacleCount = 10;
@@ -195,7 +172,7 @@ int main(int argc, char* argv[]) {
         }
 
         // Sprawdź, czy kulka się zatrzymała
-        if (isMoving && fabs(ballSpeedX) < 0.01 && fabs(ballSpeedY) < 0.01) {
+        if (isMoving && fabs(ballSpeedX) < 0.02 && fabs(ballSpeedY) < 0.02) {
             ballSpeedX = 0;
             ballSpeedY = 0;
             isMoving = false;
@@ -214,7 +191,7 @@ int main(int argc, char* argv[]) {
             moveCount = 0;
             moves = 2;
 
-            score++; // Dodajemy punkt za trafienie
+            score++;
         }
 
         // Jeśli wykonano 2 ruchy, wyświetlamy napis "Click to try again"
@@ -223,14 +200,12 @@ int main(int argc, char* argv[]) {
             SDL_Surface* messageSurface = TTF_RenderText_Solid(font, message, textColor);
             SDL_Texture* messageTexture = SDL_CreateTextureFromSurface(renderer, messageSurface);
 
-            // Określenie pozycji tekstu
             SDL_Rect messageRect;
-            messageRect.x = (windowWidth - messageSurface->w) / 2; // Wyśrodkowanie tekstu
-            messageRect.y = (windowHeight - messageSurface->h) / 2; // Wyśrodkowanie tekstu
+            messageRect.x = (windowWidth - messageSurface->w) / 2;
+            messageRect.y = (windowHeight - messageSurface->h) / 2;
             messageRect.w = messageSurface->w;
             messageRect.h = messageSurface->h;
 
-            // Renderowanie tekstu
             SDL_RenderCopy(renderer, messageTexture, NULL, &messageRect);
         }
         // Jeśli wykonano 3 ruchy, resetujemy grę
@@ -245,30 +220,26 @@ int main(int argc, char* argv[]) {
             moveCount = 0;
             moves = 2;
 
-            // Odejmujemy punkt za trafienie
             if (score > 0){
                 score--;
             }
 
         }
 
-        // Renderowanie tekstu
+        //pole tekstowe z wynikiem i ilością punktów
         char scoreText[50];
         sprintf(scoreText, "Score: %d         Moves: %d", score, moves);
         SDL_Surface* textSurface = TTF_RenderText_Solid(font, scoreText, textColor);
         SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
-        // Określenie pozycji tekstu
         SDL_Rect textRect;
         textRect.x = 10;
         textRect.y = 10;
         textRect.w = textSurface->w;
         textRect.h = textSurface->h;
 
-        // Renderowanie tekstu
         SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 
-        // Czyszczenie
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
 
