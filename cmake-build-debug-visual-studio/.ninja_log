@@ -1,9 +1,9 @@
 # ninja log v5
 1	935	7372083356389079	CMakeFiles/MiniGolf.dir/main.cpp.obj	410cf8708cc7348d
-936	1186	7372083358183302	MiniGolf.exe	26332a55afc8a95b
-13	707	7372141101595891	build.ninja	860f19875e54c5da
-1	190	7372141101595891	build.ninja	860f19875e54c5da
-5	499	7372141107782595	CMakeFiles/MiniGolf.dir/src/circle.cpp.obj	9818855efd4ecef7
-10	525	7372141108042628	CMakeFiles/MiniGolf.dir/src/collision.cpp.obj	e511c9a75e91709e
-0	557	7372141108342739	CMakeFiles/MiniGolf.dir/src/main.cpp.obj	b0599addd2ec1116
 557	853	7372141110587054	MiniGolf.exe	d83b2359088bd01b
+1	190	7372198510462978	build.ninja	860f19875e54c5da
+5	499	7372141107782595	CMakeFiles/MiniGolf.dir/src/circle.cpp.obj	9818855efd4ecef7
+0	557	7372141108342739	CMakeFiles/MiniGolf.dir/src/main.cpp.obj	b0599addd2ec1116
+10	525	7372141108042628	CMakeFiles/MiniGolf.dir/src/collision.cpp.obj	e511c9a75e91709e
+1	612	7372206852534376	CMakeFiles/MiniGolf.dir/src/main.cpp.obj	b0599addd2ec1116
+613	827	7372206853971902	MiniGolf.exe	d83b2359088bd01b
