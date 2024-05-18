@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
     double minBounceSpeed = 0.5;
 
     // Ładowanie czcionki
-    TTF_Font* font = TTF_OpenFont("C:\\Users\\danie\\Desktop\\PJATK\\SEM 6\\SGD\\MiniGolf\\src\\font\\font.ttf", 24);
+    TTF_Font* font = TTF_OpenFont("font.ttf", 24);
 
     // Ustawienie koloru tekstu
     SDL_Color textColor = {255, 255, 255, 255};
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
         ballPosY += ballSpeedY;
 
         // Wyczyść backbuffer (ustaw tło na kolor trawy)
-        SDL_SetRenderDrawColor(renderer, 124, 252, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 154, 252, 10, 255);
         SDL_RenderClear(renderer);
 
         // Dodajemy wzór szachownicy do tła
