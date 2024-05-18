@@ -13,10 +13,7 @@ int main(int argc, char* argv[]) {
     srand(time(NULL));
 
     // Inicjalizacja SDL_ttf
-    if (TTF_Init() == -1) {
-        printf("TTF_Init: %s\n", TTF_GetError());
-        exit(2);
-    }
+    TTF_Init();
 
     // Inicjalizacja zmiennych gry
     int moves = 2;
@@ -32,9 +29,6 @@ int main(int argc, char* argv[]) {
 
     // Ładowanie czcionki
     TTF_Font* font = TTF_OpenFont("C:\\Users\\danie\\Desktop\\PJATK\\SEM 6\\SGD\\MiniGolf\\src\\font\\font.ttf", 24);
-    if (font == NULL) {
-        printf("TTF_OpenFont: %s\n", TTF_GetError());
-    }
 
     // Ustawienie koloru tekstu
     SDL_Color textColor = {255, 255, 255, 255};
