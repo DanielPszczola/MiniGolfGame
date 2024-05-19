@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <SDL_image.h>
 #include "headers/circle.h"
 #include "headers/collision.h"
 
@@ -14,6 +15,8 @@ int main(int argc, char* argv[]) {
 
     // Inicjalizacja SDL_ttf
     TTF_Init();
+
+    IMG_Init(IMG_INIT_PNG);
 
     // Inicjalizacja zmiennych gry
     int moves = 2;
@@ -121,10 +124,15 @@ int main(int argc, char* argv[]) {
             }
         }
 
+
+
+        SDL_Surface* texture = IMG_Load("tekstura.png");
+        SDL_Texture* obstacleTexture = SDL_CreateTextureFromSurface(renderer, texture);
+        SDL_FreeSurface(texture);
         // Wyrenderuj przeszkody
         SDL_SetRenderDrawColor(renderer, 210, 180, 140, 255);
         for (int i = 0; i < obstacleCount; i++) {
-            SDL_RenderFillRect(renderer, &obstacles[i]);
+            SDL_RenderCopy(renderer, obstacleTexture, NULL, &obstacles[i]);
         }
 
         // Wyrenderuj dziurę (czarny okrąg)

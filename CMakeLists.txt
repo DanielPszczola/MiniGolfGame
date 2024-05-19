@@ -7,12 +7,15 @@ set(SDL2_INCLUDE_DIR "C:\\SDL2-2.30.1\\include")
 set(SDL2_LIB_DIR "C:\\SDL2-2.30.1\\lib\\x64")
 set(SDL2_TTF_INCLUDE_DIR "C:\\SDL2_ttf-2.22.0\\include")
 set(SDL2_TTF_LIB_DIR "C:\\SDL2_ttf-2.22.0\\lib\\x64")
+set(SDL2_IMAGE_INCLUDE_DIR "C:\\SDL2_image-2.8.2\\include")
+set(SDL2_IMAGE_LIB_DIR "C:\\SDL2_image-2.8.2\\lib\\x64")
 
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_TTF_INCLUDE_DIR})
+include_directories(${SDL2_IMAGE_INCLUDE_DIR})
 add_executable(${PROJECT_NAME} src/main.cpp
         src/headers/circle.h
         src/circle.cpp
         src/headers/collision.h
         src/collision.cpp)
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIB_DIR}/SDL2.lib ${SDL2_LIB_DIR}/SDL2main.lib ${SDL2_TTF_LIB_DIR}/SDL2_ttf.lib)
+target_link_libraries(${PROJECT_NAME} ${SDL2_LIB_DIR}/SDL2.lib ${SDL2_LIB_DIR}/SDL2main.lib ${SDL2_TTF_LIB_DIR}/SDL2_ttf.lib ${SDL2_IMAGE_LIB_DIR}/SDL2_image.lib)
